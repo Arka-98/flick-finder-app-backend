@@ -3,7 +3,14 @@ import { HydratedDocument } from 'mongoose';
 
 export type MovieDocument = HydratedDocument<Movie>;
 
-@Schema()
+@Schema({
+  timestamps: true,
+  toJSON: {
+    transform: function (doc, ret) {
+      delete ret.__v;
+    },
+  },
+})
 export class Movie {
   @Prop({ type: String })
   title: string;
@@ -16,6 +23,9 @@ export class Movie {
 
   @Prop({ type: [String] })
   cast: string[];
+
+  @Prop({ default: false })
+  approved: boolean;
 }
 
 export const MovieSchema = SchemaFactory.createForClass(Movie);

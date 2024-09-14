@@ -15,7 +15,7 @@ import { GetMovieDto } from './dto/get-movie.dto';
 @ApiTags('movies')
 @Controller('movies')
 export class MoviesController {
-  constructor(private moviesService: MoviesService) {}
+  constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
   @ApiOkResponse({
@@ -30,7 +30,7 @@ export class MoviesController {
   @Get(':id')
   @ApiOkResponse({
     type: GetMovieDto,
-    description: 'Get movie by id',
+    description: 'Get movie by ID',
   })
   getMovieById(@Param('id') id: string) {
     return this.moviesService.findMovieById(id);
@@ -49,7 +49,7 @@ export class MoviesController {
   @Patch(':id')
   @ApiOkResponse({
     type: GetMovieDto,
-    description: 'Update movie',
+    description: 'Update movie by ID',
   })
   updateMovie(@Param('id') id: string, @Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.updateMovie(id, createMovieDto);
@@ -58,7 +58,7 @@ export class MoviesController {
   @Delete(':id')
   @ApiOkResponse({
     type: GetMovieDto,
-    description: 'Delete movie',
+    description: 'Delete movie by ID',
   })
   deleteMovie(@Param('id') id: string) {
     return this.moviesService.deleteMovie(id);

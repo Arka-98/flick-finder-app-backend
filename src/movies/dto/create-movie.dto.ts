@@ -1,9 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMinSize, IsArray, IsNumber, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsNumber,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { SearchDto } from './search.dto';
 
-export class CreateMovieDto {
-  @IsString()
-  @ApiProperty()
+export class CreateMovieDto extends SearchDto {
+  @MaxLength(10)
   title: string;
 
   @IsNumber()
@@ -15,8 +21,8 @@ export class CreateMovieDto {
   director: string;
 
   @IsArray()
-  @IsString({ each: true })
   @ArrayMinSize(1)
+  @IsString({ each: true })
   @ApiProperty()
   cast: string[];
 }
