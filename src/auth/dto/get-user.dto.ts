@@ -4,13 +4,13 @@ export class GetUserDto {
   @ApiProperty()
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ minLength: 3 })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ format: 'email' })
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ format: 'phone' })
   phone: string;
 
   @ApiProperty()

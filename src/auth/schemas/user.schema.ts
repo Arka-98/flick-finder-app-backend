@@ -1,13 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { UserTypesEnum } from 'src/enums/user-types.enum';
+import { RolesEnum } from 'src/common/enums/roles.enum';
 
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({
   timestamps: true,
   toJSON: {
-    transform: function (doc, ret) {
+    transform: function (_, ret) {
       delete ret.__v;
     },
   },
@@ -25,8 +25,8 @@ export class User {
   @Prop({ type: Date })
   dob: Date;
 
-  @Prop({ enum: UserTypesEnum, default: UserTypesEnum.CUSTOMER })
-  type: UserTypesEnum;
+  @Prop({ enum: RolesEnum, default: RolesEnum.CUSTOMER })
+  role: RolesEnum;
 
   @Prop()
   password: string;

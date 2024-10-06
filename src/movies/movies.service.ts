@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Movie } from './schemas/movie.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreateMovieDto } from './dto/create-movie.dto';
 
 @Injectable()
 export class MoviesService {
-  constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) {}
+  constructor(
+    @InjectModel(Movie.name) private readonly movieModel: Model<Movie>,
+  ) {}
 
   async createMovie(movie: CreateMovieDto) {
     const createdMovie = new this.movieModel(movie);
@@ -14,25 +16,23 @@ export class MoviesService {
     return createdMovie.save();
   }
 
-  async findMovieById(id: string) {
-    const movie = await this.movieModel.findById(id);
-
-    if (!movie) {
-      throw new NotFoundException('Movie not found');
-    }
-
-    return movie;
+  async findMovieById(id: Types.ObjectId) {
+    return this.movieModel.findById(id);
   }
 
   async findAllMovies() {
     return this.movieModel.find();
   }
 
-  async updateMovie(id: string, movie: CreateMovieDto) {
+  async findMovieByUserId(userId: string) {
+    return this.movieModel.find({});
+  }
+
+  async updateMovie(id: Types.ObjectId, movie: CreateMovieDto) {
     return this.movieModel.findByIdAndUpdate(id, { $set: movie });
   }
 
-  async deleteMovie(id: string) {
+  async deleteMovie(id: Types.ObjectId) {
     const deletedMovie = await this.movieModel.findByIdAndDelete(id);
 
     if (!deletedMovie) {

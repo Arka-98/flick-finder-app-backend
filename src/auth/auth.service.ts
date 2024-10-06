@@ -23,6 +23,7 @@ export class AuthService {
       accessToken: this.jwtService.sign({
         sub: createdUser._id,
         username: createdUser.name,
+        role: createdUser.role,
       }),
       user: createdUser.toJSON(),
     };
@@ -42,7 +43,11 @@ export class AuthService {
     }
 
     return {
-      accessToken: this.jwtService.sign({ sub: user._id, username: user.name }),
+      accessToken: this.jwtService.sign({
+        sub: user._id,
+        username: user.name,
+        role: user.role,
+      }),
       user,
     };
   }

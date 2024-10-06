@@ -5,9 +5,11 @@ import { MoviesModule } from './movies/movies.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from './guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { TheatersModule } from './theaters/theaters.module';
+import { RoleGuard } from './guards/role.guard';
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     AuthModule,
     MoviesModule,
+    TheatersModule,
   ],
   controllers: [AppController],
   providers: [
@@ -28,7 +31,7 @@ import { APP_GUARD } from '@nestjs/core';
     JwtService,
     ConfigService,
     { provide: APP_GUARD, useClass: AuthGuard },
+    { provide: APP_GUARD, useClass: RoleGuard },
   ],
-  exports: [ConfigService],
 })
 export class AppModule {}

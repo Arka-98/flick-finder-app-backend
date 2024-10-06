@@ -1,29 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDateString,
-  IsEmail,
-  IsMobilePhone,
-  IsString,
-  IsStrongPassword,
-} from 'class-validator';
+import { IsStrongPassword } from 'class-validator';
+import { UpdateUserDto } from './update-user.dto';
 
-export class RegisterUserDto {
-  @IsString()
-  @ApiProperty()
-  name: string;
-
-  @IsEmail()
-  @ApiProperty()
-  email: string;
-
-  @IsMobilePhone('en-IN')
-  @ApiProperty()
-  phone: string;
-
-  @IsDateString()
-  @ApiProperty()
-  dob: string;
-
+export class RegisterUserDto extends UpdateUserDto {
   @IsStrongPassword({
     minLength: 6,
     minNumbers: 1,

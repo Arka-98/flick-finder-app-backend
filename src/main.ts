@@ -10,9 +10,10 @@ async function bootstrap() {
   });
   const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
-    .setTitle('Flick Finder API')
+    .setTitle('Flick Finder')
     .setDescription('Flick Finder REST API specification')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config, {
     deepScanRoutes: true,

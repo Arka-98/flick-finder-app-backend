@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { RolesEnum } from 'src/common/enums/roles.enum';
 import { IS_PUBLIC } from 'src/decorators/public.decorator';
 
 @Injectable()
@@ -39,6 +40,7 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync<{
         sub: string;
         username: string;
+        role: RolesEnum;
       }>(token, { secret: this.configService.get('JWT_SECRET') });
       req['user'] = payload;
     } catch {

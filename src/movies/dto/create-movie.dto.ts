@@ -6,10 +6,11 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { SearchDto } from './search.dto';
 
-export class CreateMovieDto extends SearchDto {
+export class CreateMovieDto {
+  @IsString()
   @MaxLength(10)
+  @ApiProperty()
   title: string;
 
   @IsNumber()

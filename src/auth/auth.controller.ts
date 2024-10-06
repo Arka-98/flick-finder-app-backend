@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthService } from './auth.service';
@@ -12,6 +12,7 @@ export class AuthController {
 
   @Public()
   @Post('register')
+  @HttpCode(201)
   @ApiOkResponse({
     type: RegisterUserDto,
     description: 'Register new user',
@@ -22,6 +23,7 @@ export class AuthController {
 
   @Public()
   @Post('login')
+  @HttpCode(200)
   @ApiOkResponse({
     type: LoginUserDto,
     description: 'Login user',
