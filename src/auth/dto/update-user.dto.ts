@@ -1,3 +1,4 @@
+import { RolesEnum } from '@flick-finder/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsDateString,
@@ -8,7 +9,6 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { RolesEnum } from 'src/common/enums/roles.enum';
 
 export class UpdateUserDto {
   @IsString()

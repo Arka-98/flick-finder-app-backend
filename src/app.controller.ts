@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiOkResponse } from '@nestjs/swagger';
-import { Public } from './decorators/public.decorator';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from '@flick-finder/common';
 
+@ApiTags('root')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}

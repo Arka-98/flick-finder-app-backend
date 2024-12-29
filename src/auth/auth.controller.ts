@@ -3,25 +3,24 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from '@flick-finder/common';
 
+@Public()
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Public()
   @Post('register')
   @HttpCode(201)
   @ApiOkResponse({
     type: RegisterUserDto,
     description: 'Register new user',
   })
-  register(@Body() registerUserDto: RegisterUserDto) {
-    return this.authService.register(registerUserDto);
+  async register(@Body() registerUserDto: RegisterUserDto) {
+    const response = await this.authService.register(registerUserDto);
   }
 
-  @Public()
   @Post('login')
   @HttpCode(200)
   @ApiOkResponse({

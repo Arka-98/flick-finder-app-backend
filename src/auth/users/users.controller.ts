@@ -16,8 +16,8 @@ import {
 } from '@nestjs/swagger';
 import { GetUserDto } from '../dto/get-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { ParseObjectIdPipe } from 'src/pipes/parse-object-id.pipe';
 import { Types } from 'mongoose';
+import { ParseObjectIdPipe } from '@flick-finder/common';
 
 @ApiBearerAuth()
 @ApiTags('users')

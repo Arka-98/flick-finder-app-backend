@@ -1,6 +1,6 @@
+import { RolesEnum } from '@flick-finder/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { RolesEnum } from 'src/common/enums/roles.enum';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -30,6 +30,15 @@ export class User {
 
   @Prop()
   password: string;
+
+  @Prop({ default: false })
+  emailVerified: boolean;
+
+  @Prop({ default: false })
+  phoneVerified: boolean;
+
+  @Prop({ default: false })
+  blocked: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

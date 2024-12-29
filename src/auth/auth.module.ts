@@ -3,11 +3,9 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
-import { UserUtil } from 'src/utils';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
+import { KafkaModule, UserUtil } from '@flick-finder/common';
 
 @Module({
   imports: [
@@ -31,17 +29,7 @@ import { UsersController } from './users/users.controller';
         },
       },
     ]),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        global: true,
-        secret: configService.get('JWT_SECRET'),
-        signOptions: {
-          expiresIn: '30m',
-        },
-      }),
-      inject: [ConfigService],
-    }),
+    KafkaModule,
   ],
   controllers: [AuthController, UsersController],
   providers: [AuthService, UsersService],

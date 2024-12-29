@@ -10,8 +10,8 @@ async function bootstrap() {
   });
   const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
-    .setTitle('Flick Finder')
-    .setDescription('Flick Finder REST API specification')
+    .setTitle('Flick Finder Auth Service')
+    .setDescription('Flick Finder Auth REST API specification')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -20,7 +20,7 @@ async function bootstrap() {
   });
 
   SwaggerModule.setup('api/v1', app, document);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   await app.listen(configService.get('APP_PORT'));
 }
